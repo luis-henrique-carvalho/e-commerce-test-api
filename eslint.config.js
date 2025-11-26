@@ -1,7 +1,15 @@
-import eslint from '@antfu/eslint-config';
+import js from "@eslint/js";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
-export default eslint({
-  stylistic: {
-    semi: true,
-  },
-});
+export default tseslint.config(
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  }
+);
