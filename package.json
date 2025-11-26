@@ -5,13 +5,13 @@
   },
   "type": "module",
   "scripts": {
-    "build": "esbuild src/server.ts --bundle --outfile=build/server.js --platform=node --format=esm --packages=external",
-    "start": "node build/server.js",
+    "build": "esbuild src/server.ts --bundle --platform=node --target=node22 --format=esm --outdir=dist --packages=external",
+    "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
-    "generate": "drizzle-kit generate:pg",
-    "migrate": "tsx src/migrate.ts",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "seed": "tsx src/db/seed.ts",
+    "lint": "eslint . --ext .ts"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +22,6 @@
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
     "express": "^5.1.0",
-    "pg": "^8.16.3",
     "postgres": "^3.4.7",
     "zod": "^4.1.13"
   },
@@ -31,6 +30,11 @@
     "@types/express": "^5.0.5",
     "@types/pg": "^8.15.6",
     "drizzle-kit": "^0.31.7",
-    "tsx": "^4.20.6"
+    "esbuild": "^0.27.0",
+    "eslint": "^9.39.1",
+    "pg": "^8.16.3",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }

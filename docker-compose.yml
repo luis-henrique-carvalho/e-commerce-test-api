@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:17
     container_name: ecommerce-postgres
     restart: unless-stopped
     environment:
@@ -13,11 +11,6 @@ services:
       - "${DB_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   api:
     build:
@@ -31,9 +24,6 @@ services:
       NODE_ENV: production
       PORT: ${PORT:-3000}
       DB_URL: postgres://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-ecommerce}
-    depends_on:
-      postgres:
-        condition: service_healthy
     command: sh -c "pnpm run migrate && node build/server.js"
 
 volumes:
