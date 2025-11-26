@@ -1,80 +1,80 @@
 # E-commerce Test API
 
-API Backend desenvolvida para desafio técnico de e-commerce, construída com Node.js, Express, TypeScript, Drizzle ORM e PostgreSQL.
+Backend API developed for an e-commerce technical challenge, built with Node.js, Express, TypeScript, Drizzle ORM, and PostgreSQL.
 
-## 🎯 Requisitos do Desafio
+## 🎯 Challenge Requirements
 
-Esta API fornece os endpoints necessários para:
+This API provides the necessary endpoints to:
 
-- Exibir detalhes de produtos (foto, nome, preço, descrição)
-- Simular preço promocional
-- Adicionar produtos ao carrinho
-- Visualizar resumo do carrinho com quantidades e subtotais
-- Remover itens do carrinho
+- Display product details (photo, name, price, description)
+- Simulate promotional pricing
+- Add products to the cart
+- View cart summary with quantities and subtotals
+- Remove items from the cart
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
-- Node.js (v22.14.0 ou superior)
+- Node.js (v22.14.0 or higher)
 - PostgreSQL
-- pnpm (gerenciador de pacotes)
+- pnpm (package manager)
 
-## 🚀 Como Rodar Localmente
+## 🚀 How to Run Locally
 
-### 1. Clone o repositório
+### 1. Clone the repository
 
 ```bash
-git clone <seu-repositorio>
+git clone <your-repository>
 cd e-commerce-test-api
 ```
 
-### 2. Instale as dependências
+### 2. Install dependencies
 
 ```bash
 pnpm install
 ```
 
-### 3. Configure as variáveis de ambiente
+### 3. Configure environment variables
 
-Crie um arquivo `.env` na raiz do projeto:
+Create a `.env` file in the project root:
 
 ```env
-DATABASE_URL=postgresql://usuario:senha@localhost:5432/ecommerce
+DATABASE_URL=postgresql://user:password@localhost:5432/ecommerce
 PORT=3000
 ```
 
-### 4. Execute as migrations do banco de dados
+### 4. Run database migrations
 
 ```bash
-# Gera as migrations baseadas no schema
+# Generate migrations based on schema
 pnpm generate
 
-# Aplica as migrations no banco
+# Apply migrations to the database
 pnpm migrate
 ```
 
-### 5. Popule o banco com dados iniciais (seed)
+### 5. Seed the database with initial data
 
 ```bash
 pnpm seed
 ```
 
-### 6. Inicie o servidor de desenvolvimento
+### 6. Start the development server
 
 ```bash
 pnpm dev
 ```
 
-A API estará disponível em `http://localhost:3000`
+The API will be available at `http://localhost:3000`
 
-## 📡 Endpoints da API
+## 📡 API Endpoints
 
-### **Produtos**
+### **Products**
 
 #### `GET /api/products/:id`
 
-Retorna dados detalhados de um produto específico.
+Returns detailed data of a specific product.
 
-**Exemplo de resposta:**
+**Response Example:**
 
 ```json
 {
@@ -82,7 +82,7 @@ Retorna dados detalhados de um produto específico.
   "data": {
     "id": 2,
     "name": "Notebook Gamer Acer Nitro 5",
-    "description": "Notebook gamer potente equipado com processador Intel Core i7...",
+    "description": "Powerful gaming notebook equipped with Intel Core i7 processor...",
     "imageUrl": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=800",
     "priceInCents": 749900,
     "promotionalPriceInCents": 649900,
@@ -93,15 +93,15 @@ Retorna dados detalhados de um produto específico.
 
 #### `GET /api/products`
 
-Retorna lista de todos os produtos disponíveis.
+Returns a list of all available products.
 
 ---
 
-### **Carrinho**
+### **Cart**
 
 #### `POST /api/cart/add`
 
-Adiciona um produto ao carrinho.
+Adds a product to the cart.
 
 **Body:**
 
@@ -112,7 +112,7 @@ Adiciona um produto ao carrinho.
 }
 ```
 
-**Resposta:**
+**Response:**
 
 ```json
 {
@@ -128,9 +128,9 @@ Adiciona um produto ao carrinho.
 
 #### `GET /api/cart`
 
-Retorna todos os itens do carrinho com cálculos de preços.
+Returns all items in the cart with price calculations.
 
-**Resposta:**
+**Response:**
 
 ```json
 {
@@ -160,9 +160,9 @@ Retorna todos os itens do carrinho com cálculos de preços.
 
 #### `DELETE /api/cart/:id`
 
-Remove um item específico do carrinho.
+Removes a specific item from the cart.
 
-**Resposta:**
+**Response:**
 
 ```json
 {
@@ -173,43 +173,43 @@ Remove um item específico do carrinho.
 
 ---
 
-## 🏗️ Estrutura do Projeto
+## 🏗️ Project Structure
 
 ```
 src/
-├── controllers/      # Controladores de requisição
+├── controllers/      # Request controllers
 │   ├── cart-controller.ts
 │   └── product-controller.ts
-├── services/        # Lógica de negócio
+├── services/        # Business logic
 │   ├── cart-service.ts
 │   └── product-service.ts
-├── db/              # Configuração do banco
+├── db/              # Database configuration
 │   ├── index.ts
-│   ├── schema.ts    # Schema Drizzle ORM
-│   └── seed.ts      # Dados iniciais
-├── routes/          # Definição de rotas
+│   ├── schema.ts    # Drizzle ORM Schema
+│   └── seed.ts      # Initial data
+├── routes/          # Route definitions
 │   ├── cart-routes.ts
 │   ├── product-routes.ts
 │   └── index.ts
-├── utils/           # Utilitários
+├── utils/           # Utilities
 │   ├── env.ts
 │   └── errors.ts
 └── server.ts        # Entry point
 ```
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Technologies Used
 
-- **Node.js** - Runtime JavaScript
-- **TypeScript** - Superset tipado do JavaScript
-- **Express.js** - Framework web
-- **Drizzle ORM** - ORM type-safe para TypeScript
-- **PostgreSQL** - Banco de dados relacional
-- **Zod** - Validação de schemas
-- **tsx** - Execução de TypeScript
+- **Node.js** - JavaScript Runtime
+- **TypeScript** - Typed superset of JavaScript
+- **Express.js** - Web framework
+- **Drizzle ORM** - Type-safe ORM for TypeScript
+- **PostgreSQL** - Relational database
+- **Zod** - Schema validation
+- **tsx** - TypeScript execution
 
-## 💾 Schema do Banco de Dados
+## 💾 Database Schema
 
-### Tabelas
+### Tables
 
 **products**
 
@@ -217,8 +217,8 @@ src/
 - `name` (text)
 - `description` (text)
 - `imageUrl` (text)
-- `priceInCents` (integer) - Preço em centavos
-- `promotionalPriceInCents` (integer, nullable) - Preço promocional
+- `priceInCents` (integer) - Price in cents
+- `promotionalPriceInCents` (integer, nullable) - Promotional price
 - `createdAt` (timestamp)
 
 **carts**
@@ -234,58 +234,58 @@ src/
 - `productId` (integer, FK → products)
 - `quantity` (integer, default: 1)
 
-## 📝 Scripts Disponíveis
+## 📝 Available Scripts
 
 ```bash
-pnpm dev          # Inicia servidor em modo desenvolvimento
-pnpm build        # Compila o projeto
-pnpm start        # Inicia servidor em produção
-pnpm generate     # Gera migrations do Drizzle
-pnpm migrate      # Aplica migrations no banco
-pnpm seed         # Popula banco com dados iniciais
-pnpm lint         # Executa linter
+pnpm dev          # Starts server in development mode
+pnpm build        # Compiles the project
+pnpm start        # Starts server in production
+pnpm generate     # Generates Drizzle migrations
+pnpm migrate      # Applies migrations to the database
+pnpm seed         # Seeds database with initial data
+pnpm lint         # Runs linter
 ```
 
-## 🧪 Testes Automatizados
+## 🧪 Automated Tests
 
-O projeto utiliza **Vitest** para testes automatizados.
+The project uses **Vitest** for automated testing.
 
-### Executando os testes
+### Running tests
 
 ```bash
-# Executa todos os testes
+# Run all tests
 pnpm test
 
-# Executa testes em modo watch (observação)
+# Run tests in watch mode
 pnpm test:watch
 
-# Gera relatório de cobertura de código
+# Generate code coverage report
 pnpm test:coverage
 ```
 
-### Estrutura de Testes
+### Test Structure
 
-- **Unitários**: Testam a lógica de negócio nos services (`src/services/*.test.ts`), utilizando mocks do banco de dados.
-- **Integração**: Testam os endpoints da API (`src/routes/*.test.ts`), utilizando um banco de dados de teste real.
+- **Unit**: Tests business logic in services (`src/services/*.test.ts`), using database mocks.
+- **Integration**: Tests API endpoints (`src/routes/*.test.ts`), using a real test database.
 
-### Configuração do Banco de Testes
+### Test Database Configuration
 
-Os testes de integração utilizam um banco de dados separado (definido em `.env.test` ou criado automaticamente como `ecommerce_test`). O setup global (`src/tests/global-setup.ts`) cuida da criação do banco e execução das migrations antes dos testes.
+Integration tests use a separate database (defined in `.env.test` or automatically created as `ecommerce_test`). The global setup (`src/tests/global-setup.ts`) handles database creation and migration execution before tests.
 
-## 🎨 Detalhes de Implementação
+## 🎨 Implementation Details
 
-### Preços em Centavos
+### Prices in Cents
 
-Todos os preços são armazenados em centavos (integer) para evitar problemas de arredondamento com ponto flutuante.
+All prices are stored in cents (integer) to avoid floating-point rounding issues.
 
-### Preço Promocional
+### Promotional Price
 
-A API prioriza `promotionalPriceInCents` quando disponível, caso contrário usa `priceInCents`.
+The API prioritizes `promotionalPriceInCents` when available, otherwise uses `priceInCents`.
 
-### Carrinho Global
+### Global Cart
 
-Para simplificação conforme requisitos do desafio, a API mantém um carrinho global único em memória. Em produção, seria recomendado usar sessões ou autenticação de usuários.
+For simplification as per challenge requirements, the API maintains a single global cart in memory. In production, it would be recommended to use sessions or user authentication.
 
-## 📄 Licença
+## 📄 License
 
 ISC
