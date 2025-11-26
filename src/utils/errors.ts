@@ -102,7 +102,7 @@ export function handleValidationError(err: ZodError): {
   const invalidFields = [];
   const requiredFields = [];
 
-  for (const error of err.errors) {
+  for (const error of err.issues) {
     if (error.code === "invalid_type") invalidFields.push(error.path.join("."));
     else if (error.message === "Required")
       requiredFields.push(error.path.join("."));

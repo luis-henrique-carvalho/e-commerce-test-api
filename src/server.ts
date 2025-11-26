@@ -2,7 +2,7 @@ import process from "node:process";
 import consola from "consola";
 import cors from "cors";
 import express from "express";
-import { errorHandler, handle404Error } from "@/utils/errors";
+import { handle404Error } from "@/utils/errors";
 import routes from "@/routes/index";
 import "./utils/env";
 
@@ -29,7 +29,7 @@ app.get("/healthcheck", (_req, res) => {
 
 app.use("/api", routes);
 
-app.all("*", handle404Error);
+app.use(handle404Error);
 
 app.listen(PORT, () => {
   consola.info(`Server running at http://localhost:${PORT}`);
