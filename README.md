@@ -246,6 +246,32 @@ pnpm seed         # Popula banco com dados iniciais
 pnpm lint         # Executa linter
 ```
 
+## 🧪 Testes Automatizados
+
+O projeto utiliza **Vitest** para testes automatizados.
+
+### Executando os testes
+
+```bash
+# Executa todos os testes
+pnpm test
+
+# Executa testes em modo watch (observação)
+pnpm test:watch
+
+# Gera relatório de cobertura de código
+pnpm test:coverage
+```
+
+### Estrutura de Testes
+
+- **Unitários**: Testam a lógica de negócio nos services (`src/services/*.test.ts`), utilizando mocks do banco de dados.
+- **Integração**: Testam os endpoints da API (`src/routes/*.test.ts`), utilizando um banco de dados de teste real.
+
+### Configuração do Banco de Testes
+
+Os testes de integração utilizam um banco de dados separado (definido em `.env.test` ou criado automaticamente como `ecommerce_test`). O setup global (`src/tests/global-setup.ts`) cuida da criação do banco e execução das migrations antes dos testes.
+
 ## 🎨 Detalhes de Implementação
 
 ### Preços em Centavos

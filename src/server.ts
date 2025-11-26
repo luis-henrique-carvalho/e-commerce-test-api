@@ -31,6 +31,10 @@ app.use("/api", routes);
 
 app.use(handle404Error);
 
-app.listen(PORT, () => {
-  consola.info(`Server running at http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    consola.info(`Server running at http://localhost:${PORT}`);
+  });
+}
+
+export default app;
