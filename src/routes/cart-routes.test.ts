@@ -33,12 +33,64 @@ describe("Cart Routes", () => {
       expect(res.body.data).toHaveProperty("quantity", 1);
     });
 
+    it("should decrease quantity if negative value is passed", async () => {
+      await seedProducts();
+      await request(app)
+        .post("/api/cart/add")
+        .send({ productId: 1, quantity: 2 });
+
+      const res = await request(app)
+        .post("/api/cart/add")
+        .send({ productId: 1, quantity: -1 });
+
+      expect(res.status).toBe(201);
+      expect(res.body.data).toHaveProperty("quantity", 1);
+    });
+
+    it("should remove item if quantity becomes zero or less", async () => {
+      await seedProducts();
+      await request(app)
+        .post("/api/cart/add")
+        .send({ productId: 1, quantity: 1 });
+
+      const res = await request(app)
+        .post("/api/cart/add")
+        .send({ productId: 1, quantity: -1 });
+
+      expect(res.status).toBe(201);
+
+      const cartRes = await request(app).get("/api/cart");
+      expect(cartRes.body.data.items).toHaveLength(0);
+    });
+
     it("should return 404 if product not found", async () => {
       const res = await request(app)
         .post("/api/cart/add")
         .send({ productId: 999, quantity: 1 });
 
       expect(res.status).toBe(404);
+    });
+
+    it("should return 400 if adding negative quantity for new item", async () => {
+      await seedProducts();
+      const res = await request(app)
+        .post("/api/cart/add")
+        .send({ productId: 1, quantity: -1 });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty(
+        "message",
+        "Cannot add negative quantity for new item"
+      );
+    });
+
+    it("should return 400 if quantity is zero", async () => {
+      await seedProducts();
+      const res = await request(app)
+        .post("/api/cart/add")
+        .send({ productId: 1, quantity: 0 });
+
+      expect(res.status).toBe(400);
     });
 
     it("should validate input", async () => {

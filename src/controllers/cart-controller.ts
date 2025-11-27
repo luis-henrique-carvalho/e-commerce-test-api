@@ -5,7 +5,12 @@ import { cartService } from "@/services/cart-service";
 
 const addToCartSchema = z.object({
   productId: z.number().int().positive(),
-  quantity: z.number().int().positive().default(1),
+  quantity: z
+    .number()
+    .int()
+    .refine((val) => val !== 0, {
+      message: "Quantity cannot be zero",
+    }),
 });
 
 export class CartController {
@@ -24,10 +29,6 @@ export class CartController {
     }
   }
 
-  /**
-   * Busca itens do carrinho com totais calculados
-   * GET /api/cart
-   */
   async getCart(req: Request, res: Response) {
     try {
       const cart = await cartService.getCartItems();
@@ -38,10 +39,6 @@ export class CartController {
     }
   }
 
-  /**
-   * Remove item do carrinho
-   * DELETE /api/cart/:id
-   */
   async removeCartItem(req: Request, res: Response) {
     try {
       const idParam = req.params.id;

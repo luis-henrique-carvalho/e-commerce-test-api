@@ -44,13 +44,29 @@ export class CartService {
     });
 
     if (existingItem) {
+      const newQuantity = existingItem.quantity + quantity;
+
+      if (newQuantity <= 0) {
+        const [deletedItem] = await db
+          .delete(cartItems)
+          .where(eq(cartItems.id, existingItem.id))
+          .returning();
+        return deletedItem;
+      }
+
       const [updatedItem] = await db
         .update(cartItems)
-        .set({ quantity: existingItem.quantity + quantity })
+        .set({ quantity: newQuantity })
         .where(eq(cartItems.id, existingItem.id))
         .returning();
 
       return updatedItem;
+    }
+
+    if (quantity <= 0) {
+      throw new BackendError("BAD_REQUEST", {
+        message: "Cannot add negative quantity for new item",
+      });
     }
 
     const [newItem] = await db
@@ -68,6 +84,7 @@ export class CartService {
       where: eq(carts.id, cart.id),
       with: {
         cartItems: {
+          orderBy: (cartItems, { desc }) => [desc(cartItems.id)],
           with: {
             product: true,
           },

@@ -8,7 +8,6 @@ import {
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
-// Products Table
 export const products = pgTable("products", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
@@ -19,14 +18,12 @@ export const products = pgTable("products", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-// Carts Table
 export const carts = pgTable("carts", {
   id: uuid("id").defaultRandom().primaryKey(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-// Cart Items Table
 export const cartItems = pgTable("cart_items", {
   id: serial("id").primaryKey(),
   cartId: uuid("cart_id")
@@ -38,7 +35,6 @@ export const cartItems = pgTable("cart_items", {
   quantity: integer("quantity").notNull().default(1),
 });
 
-// Relations
 export const productsRelations = relations(products, ({ many }) => ({
   cartItems: many(cartItems),
 }));
@@ -58,7 +54,6 @@ export const cartItemsRelations = relations(cartItems, ({ one }) => ({
   }),
 }));
 
-// Type Exports
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
 
