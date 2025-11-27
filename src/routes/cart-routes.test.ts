@@ -1,13 +1,9 @@
 import request from "supertest";
-import { describe, it, expect, beforeAll, afterEach } from "vitest";
+import { describe, it, expect, afterEach } from "vitest";
 import app from "@/server";
-import { setupTestDb, clearTestDb, seedProducts } from "@/tests/helpers/db";
+import { clearTestDb, seedProducts } from "@/tests/helpers/db";
 
 describe("Cart Routes", () => {
-  beforeAll(async () => {
-    await setupTestDb();
-  });
-
   afterEach(async () => {
     await clearTestDb();
   });

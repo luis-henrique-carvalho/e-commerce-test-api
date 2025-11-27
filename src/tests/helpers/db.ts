@@ -1,13 +1,7 @@
 import { db } from "@/db";
 import { sql } from "drizzle-orm";
 
-export async function setupTestDb() {
-  // Migrations are run in global-setup.ts
-  // We can add other setup here if needed
-}
-
 export async function clearTestDb() {
-  // Truncate tables
   await db.execute(
     sql`TRUNCATE TABLE cart_items, carts, products RESTART IDENTITY CASCADE`
   );
