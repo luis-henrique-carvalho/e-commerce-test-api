@@ -11,7 +11,7 @@
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "seed": "tsx src/db/seed.ts",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint --no-eslintrc -c .eslintrc.cjs . --ext .ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
@@ -29,14 +29,18 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
     "@vitest/coverage-v8": "^4.0.14",
     "drizzle-kit": "^0.31.7",
     "esbuild": "^0.27.0",
     "eslint": "^9.39.1",
+    "globals": "^16.5.0",
     "pg": "^8.16.3",
     "supertest": "^7.1.4",
     "ts-node-dev": "^2.0.0",

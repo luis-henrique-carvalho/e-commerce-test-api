@@ -15,7 +15,6 @@ export async function setup() {
   try {
     const urlParts = new URL(dbUrl);
     const dbName = urlParts.pathname.slice(1);
-    // Connect to default 'postgres' database to create the test database
     const adminUrl = dbUrl.replace(`/${dbName}`, "/postgres");
 
     const sql = postgres(adminUrl);
@@ -33,7 +32,6 @@ export async function setup() {
       await sql.end();
     }
 
-    // Run migrations
     const migrationClient = postgres(dbUrl, { max: 1 });
     const db = drizzle(migrationClient);
     try {
